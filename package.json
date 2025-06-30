@@ -1,7 +1,9 @@
 {
-  "name": "vanilla-basic",
+  "name": "c64-dev-platform",
   "version": "1.0.0",
-  "scripts": { 
+  "description": "Comprehensive Commodore 64 Development Platform",
+  "main": "index.html",
+  "scripts": {
     "start": "sirv ./src public --cors --single --no-clear --port 8000"
   }
 }

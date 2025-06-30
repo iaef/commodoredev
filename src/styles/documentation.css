@@ -1,0 +1,456 @@
+/* Documentation styles with C64 font integration */
+
+.doc-tabs {
+    display: flex;
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.doc-tab {
+    padding: 15px 25px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
+    font-family: var(--c64-font);
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.doc-tab:hover {
+    background: var(--border-color);
+    color: var(--c64-black);
+}
+
+.doc-tab.active {
+    background: var(--accent);
+    color: var(--c64-black);
+    font-weight: bold;
+}
+
+.doc-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    font-family: var(--c64-font);
+}
+
+.doc-section {
+    display: none;
+}
+
+.doc-section.active {
+    display: block;
+}
+
+.doc-section h2 {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    font-family: var(--c64-font);
+    letter-spacing: 1px;
+}
+
+.doc-section h3 {
+    color: var(--accent);
+    margin: 25px 0 15px 0;
+    font-size: 1.3em;
+    font-family: var(--c64-font);
+}
+
+.doc-section h4 {
+    color: var(--text-secondary);
+    margin: 20px 0 10px 0;
+    font-size: 1.1em;
+    font-family: var(--c64-font);
+}
+
+.doc-section p {
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-family: var(--c64-font);
+}
+
+.doc-section ul, .doc-section ol {
+    color: var(--text-primary);
+    margin-left: 20px;
+    margin-bottom: 15px;
+    font-family: var(--c64-font);
+}
+
+.doc-section li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Workflow-specific styles */
+.workflow-overview {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border-left: 6px solid var(--accent);
+}
+
+.workflow-overview h2 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    border: none;
+    padding: 0;
+    font-size: 1.5em;
+}
+
+.workflow-section {
+    margin: 30px 0;
+    padding: 20px;
+    background: var(--c64-black);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.workflow-section h3 {
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.workflow-section h4 {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.workflow-section ol {
+    margin-left: 25px;
+}
+
+.workflow-section ol li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.workflow-section ul ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.memory-map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.memory-block {
+    background: var(--c64-black);
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.memory-block h4 {
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-family: var(--c64-font);
+    font-size: 1em;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.memory-block .address {
+    color: var(--c64-cyan);
+    font-family: var(--c64-font);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.memory-block .description {
+    color: var(--text-primary);
+    margin-top: 3px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.code-example {
+    background: var(--c64-black);
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.code-example h4 {
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-family: var(--c64-font);
+}
+
+.code-example pre {
+    color: var(--c64-green);
+    font-family: var(--c64-font);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-example code {
+    font-family: var(--c64-font);
+}
+
+.code-example .comment {
+    color: var(--c64-cyan);
+    font-style: italic;
+}
+
+.code-example .keyword {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.code-example .address {
+    color: var(--c64-red);
+    font-weight: bold;
+}
+
+.code-example .basic-number {
+    color: var(--c64-cyan);
+    font-weight: bold;
+}
+
+.code-example .basic-keyword {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.code-example .basic-string {
+    color: var(--c64-green);
+}
+
+.code-example .basic-comment {
+    color: var(--c64-light-blue);
+    font-style: italic;
+}
+
+.code-example .basic-variable {
+    color: var(--c64-white);
+}
+
+.register-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: var(--c64-black);
+    border: 2px solid var(--border-color);
+    font-family: var(--c64-font);
+}
+
+.register-table th {
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--c64-font);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.register-table td {
+    color: var(--text-primary);
+    padding: 10px;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--c64-font);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.register-table .address-col {
+    color: var(--c64-cyan);
+    font-weight: bold;
+    font-family: var(--c64-font);
+}
+
+.register-table .name-col {
+    color: var(--accent);
+    font-weight: bold;
+    font-family: var(--c64-font);
+}
+
+.tip-box {
+    background: var(--bg-secondary);
+    border: 2px solid var(--accent);
+    border-left: 6px solid var(--accent);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.tip-box h4 {
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-family: var(--c64-font);
+}
+
+.tip-box p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.warning-box {
+    background: var(--bg-secondary);
+    border: 2px solid var(--c64-red);
+    border-left: 6px solid var(--c64-red);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.warning-box h4 {
+    color: var(--c64-red);
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-family: var(--c64-font);
+}
+
+.warning-box p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.command-card {
+    background: var(--c64-black);
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.command-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.command-card h4 {
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-family: var(--c64-font);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.command-card .syntax {
+    color: var(--c64-green);
+    font-family: var(--c64-font);
+    font-size: 12px;
+    margin-bottom: 8px;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 4px 6px;
+    border-radius: 3px;
+    border-left: 3px solid var(--c64-green);
+}
+
+.command-card .description {
+    color: var(--text-primary);
+    font-size: 11px;
+    line-height: 1.5;
+    font-family: var(--c64-font);
+}
+
+/* Enhanced styling for better readability */
+.doc-section strong {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.doc-section em {
+    color: var(--c64-cyan);
+    font-style: italic;
+}
+
+/* Responsive documentation */
+@media (max-width: 768px) {
+    .doc-tabs {
+        flex-direction: column;
+    }
+    
+    .doc-tab {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .memory-map-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .command-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .register-table {
+        font-size: 11px;
+    }
+    
+    .register-table th,
+    .register-table td {
+        padding: 6px 8px;
+    }
+    
+    .workflow-section {
+        padding: 15px;
+    }
+    
+    .doc-content {
+        padding: 15px;
+    }
+    
+    .doc-section h2 {
+        font-size: 1.5em;
+    }
+    
+    .doc-section h3 {
+        font-size: 1.2em;
+    }
+}
+
+/* Print styles for documentation */
+@media print {
+    .doc-tabs {
+        display: none;
+    }
+    
+    .doc-section {
+        display: block !important;
+        page-break-inside: avoid;
+    }
+    
+    .code-example {
+        page-break-inside: avoid;
+    }
+    
+    .workflow-section {
+        page-break-inside: avoid;
+    }
+}
