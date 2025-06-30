@@ -1,294 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>C64 Development Platform</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/editors.css">
-    <link rel="stylesheet" href="styles/documentation.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/editors.css" />
+    <link rel="stylesheet" href="styles/documentation.css" />
+  </head>
+  <body>
     <div id="app">
-        <!-- Main Dashboard -->
-        <div id="dashboard" class="screen active">
-            <div class="header">
-                <h1>COMMODORE 64 DEVELOPMENT PLATFORM</h1>
-                <p>The Ultimate C64 Programming Environment</p>
-            </div>
-            
-            <div class="project-section">
-                <h2>Project Management</h2>
-                <div class="project-controls">
-                    <button id="new-project" class="btn primary">New Project</button>
-                    <button id="load-project" class="btn secondary">Load Project</button>
-                    <button id="save-project" class="btn secondary">Save Project</button>
-                    <input type="file" id="project-file-input" accept=".c64proj" style="display: none;">
-                </div>
-                
-                <div id="current-project" class="project-info" style="display: none;">
-                    <h3 id="project-name">Untitled Project</h3>
-                    <div class="project-files">
-                        <div class="file-category">
-                            <h4>Code Files</h4>
-                            <ul id="code-files"></ul>
-                        </div>
-                        <div class="file-category">
-                            <h4>Audio Files</h4>
-                            <ul id="audio-files"></ul>
-                        </div>
-                        <div class="file-category">
-                            <h4>Graphics Files</h4>
-                            <ul id="graphics-files"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tools-grid">
-                <div class="tool-card" data-tool="documentation">
-                    <h3>📚 Documentation</h3>
-                    <p>Complete C64 reference with workflow guides, cheat sheets, memory maps, and programming guides</p>
-                </div>
-                
-                <div class="tool-card" data-tool="basic-editor">
-                    <h3>💻 BASIC Editor</h3>
-                    <p>Syntax-highlighted BASIC V2 editor with ASM view and debugging tools</p>
-                </div>
-                
-                <div class="tool-card" data-tool="sid-editor">
-                    <h3>🎵 SID Audio Editor</h3>
-                    <p>Professional tracker-style editor for creating SID music and sound effects</p>
-                </div>
-                
-                <div class="tool-card" data-tool="sprite-editor">
-                    <h3>🎨 Sprite & Character Editor</h3>
-                    <p>Pixel-perfect editor for sprites and character sets with C64 palette</p>
-                </div>
-            </div>
+      <!-- Main Dashboard -->
+      <div id="dashboard" class="screen active">
+        <div class="header">
+          <h1>COMMODORE 64 DEVELOPMENT PLATFORM</h1>
+          <p>The Ultimate C64 Programming Environment</p>
+          <img id="bolt" src="logotext_poweredby_360w.png" width="80px" />
         </div>
 
-        <!-- Documentation Screen -->
-        <div id="documentation" class="screen">
-            <div class="screen-header">
-                <button class="back-btn">← Back to Dashboard</button>
-                <h2>C64 Documentation & Reference</h2>
+        <div class="project-section">
+          <h2>Project Management</h2>
+          <div class="project-controls">
+            <button id="new-project" class="btn primary">New Project</button>
+            <button id="load-project" class="btn secondary">
+              Load Project
+            </button>
+            <button id="save-project" class="btn secondary">
+              Save Project
+            </button>
+            <input
+              type="file"
+              id="project-file-input"
+              accept=".c64proj"
+              style="display: none"
+            />
+          </div>
+
+          <div id="current-project" class="project-info" style="display: none">
+            <h3 id="project-name">Untitled Project</h3>
+            <div class="project-files">
+              <div class="file-category">
+                <h4>Code Files</h4>
+                <ul id="code-files"></ul>
+              </div>
+              <div class="file-category">
+                <h4>Audio Files</h4>
+                <ul id="audio-files"></ul>
+              </div>
+              <div class="file-category">
+                <h4>Graphics Files</h4>
+                <ul id="graphics-files"></ul>
+              </div>
             </div>
-            
-            <div class="doc-tabs">
-                <button class="doc-tab active" data-tab="workflow">Workflow Guide</button>
-                <button class="doc-tab" data-tab="memory-map">Memory Map</button>
-                <button class="doc-tab" data-tab="vic-reference">VIC-II Reference</button>
-                <button class="doc-tab" data-tab="sid-reference">SID Reference</button>
-                <button class="doc-tab" data-tab="basic-commands">BASIC Commands</button>
-                <button class="doc-tab" data-tab="programming-tips">Programming Tips</button>
-            </div>
-            
-            <div class="doc-content">
-                <div id="workflow-content" class="doc-section active"></div>
-                <div id="memory-map-content" class="doc-section"></div>
-                <div id="vic-reference-content" class="doc-section"></div>
-                <div id="sid-reference-content" class="doc-section"></div>
-                <div id="basic-commands-content" class="doc-section"></div>
-                <div id="programming-tips-content" class="doc-section"></div>
-            </div>
+          </div>
         </div>
 
-        <!-- BASIC Editor Screen -->
-        <div id="basic-editor" class="screen">
-            <div class="screen-header">
-                <button class="back-btn">← Back to Dashboard</button>
-                <h2>BASIC V2 Editor</h2>
-                <div class="editor-controls">
-                    <button id="new-basic-file" class="btn small">New</button>
-                    <button id="load-basic-file" class="btn small">Load</button>
-                    <button id="save-basic-file" class="btn small">Save</button>
-                    <select id="basic-file-select"></select>
-                </div>
-            </div>
-            
-            <div class="editor-layout">
-                <div class="editor-panel">
-                    <div class="panel-header">
-                        <h3>BASIC Code</h3>
-                        <div class="editor-options">
-                            <label><input type="checkbox" id="line-numbers"> Auto Line Numbers</label>
-                            <label>Increment: 
-                                <select id="line-increment">
-                                    <option value="5">5</option>
-                                    <option value="10" selected>10</option>
-                                    <option value="20">20</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </label>
-                        </div>
-                    </div>
-                    <textarea id="basic-code" class="code-editor" placeholder="10 PRINT &quot;HELLO WORLD&quot;&#10;20 GOTO 10"></textarea>
-                </div>
-                
-                <div class="editor-panel">
-                    <div class="panel-header">
-                        <h3>Assembly View</h3>
-                        <div class="asm-options">
-                            <label><input type="radio" name="asm-view" value="opcodes" checked> OpCodes</label>
-                            <label><input type="radio" name="asm-view" value="readable"> Readable</label>
-                        </div>
-                    </div>
-                    <div id="asm-output" class="asm-viewer"></div>
-                </div>
-            </div>
+        <div class="tools-grid">
+          <div class="tool-card" data-tool="documentation">
+            <h3>📚 Documentation</h3>
+            <p>
+              Complete C64 reference with workflow guides, cheat sheets, memory
+              maps, and programming guides
+            </p>
+          </div>
+
+          <div class="tool-card" data-tool="basic-editor">
+            <h3>💻 BASIC Editor</h3>
+            <p>
+              Syntax-highlighted BASIC V2 editor with ASM view and debugging
+              tools
+            </p>
+          </div>
+
+          <div class="tool-card" data-tool="sid-editor">
+            <h3>🎵 SID Audio Editor</h3>
+            <p>
+              Professional tracker-style editor for creating SID music and sound
+              effects
+            </p>
+          </div>
+
+          <div class="tool-card" data-tool="sprite-editor">
+            <h3>🎨 Sprite & Character Editor</h3>
+            <p>
+              Pixel-perfect editor for sprites and character sets with C64
+              palette
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documentation Screen -->
+      <div id="documentation" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back to Dashboard</button>
+          <h2>C64 Documentation & Reference</h2>
         </div>
 
-        <!-- SID Editor Screen -->
-        <div id="sid-editor" class="screen">
-            <div class="screen-header">
-                <button class="back-btn">← Back to Dashboard</button>
-                <h2>SID Audio Editor</h2>
-                <div class="editor-controls">
-                    <button id="new-sid-file" class="btn small">New</button>
-                    <button id="load-sid-file" class="btn small">Load</button>
-                    <button id="save-sid-file" class="btn small">Save</button>
-                    <select id="sid-file-select"></select>
-                </div>
-            </div>
-            
-            <div class="sid-layout">
-                <div class="sid-controls">
-                    <div class="playback-controls">
-                        <button id="play-sid" class="btn primary">▶ Play</button>
-                        <button id="stop-sid" class="btn secondary">⏹ Stop</button>
-                        <button id="record-sid" class="btn secondary">⏺ Record</button>
-                    </div>
-                    
-                    <div class="tempo-control">
-                        <label>Tempo: <input type="range" id="tempo" min="60" max="200" value="120"> <span id="tempo-value">120</span> BPM</label>
-                    </div>
-                </div>
-                
-                <div class="voice-panels">
-                    <div class="voice-panel" data-voice="1">
-                        <h3>Voice 1</h3>
-                        <div class="voice-controls">
-                            <select class="waveform-select">
-                                <option value="triangle">Triangle</option>
-                                <option value="sawtooth">Sawtooth</option>
-                                <option value="pulse">Pulse</option>
-                                <option value="noise">Noise</option>
-                            </select>
-                            <label>Attack: <input type="range" class="attack" min="0" max="15" value="0"></label>
-                            <label>Decay: <input type="range" class="decay" min="0" max="15" value="9"></label>
-                            <label>Sustain: <input type="range" class="sustain" min="0" max="15" value="0"></label>
-                            <label>Release: <input type="range" class="release" min="0" max="15" value="0"></label>
-                        </div>
-                    </div>
-                    
-                    <div class="voice-panel" data-voice="2">
-                        <h3>Voice 2</h3>
-                        <div class="voice-controls">
-                            <select class="waveform-select">
-                                <option value="triangle">Triangle</option>
-                                <option value="sawtooth">Sawtooth</option>
-                                <option value="pulse">Pulse</option>
-                                <option value="noise">Noise</option>
-                            </select>
-                            <label>Attack: <input type="range" class="attack" min="0" max="15" value="0"></label>
-                            <label>Decay: <input type="range" class="decay" min="0" max="15" value="9"></label>
-                            <label>Sustain: <input type="range" class="sustain" min="0" max="15" value="0"></label>
-                            <label>Release: <input type="range" class="release" min="0" max="15" value="0"></label>
-                        </div>
-                    </div>
-                    
-                    <div class="voice-panel" data-voice="3">
-                        <h3>Voice 3</h3>
-                        <div class="voice-controls">
-                            <select class="waveform-select">
-                                <option value="triangle">Triangle</option>
-                                <option value="sawtooth">Sawtooth</option>
-                                <option value="pulse">Pulse</option>
-                                <option value="noise">Noise</option>
-                            </select>
-                            <label>Attack: <input type="range" class="attack" min="0" max="15" value="4"></label>
-                            <label>Decay: <input type="range" class="decay" min="0" max="15" value="0"></label>
-                            <label>Sustain: <input type="range" class="sustain" min="0" max="15" value="8"></label>
-                            <label>Release: <input type="range" class="release" min="0" max="15" value="8"></label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tracker-container">
-                    <div class="pattern-header">
-                        <div class="pattern-cell">Step</div>
-                        <div class="pattern-cell">Voice 1 (Note Oct Fx Param)</div>
-                        <div class="pattern-cell">Voice 2 (Note Oct Fx Param)</div>
-                        <div class="pattern-cell">Voice 3 (Note Oct Fx Param)</div>
-                    </div>
-                    <div id="pattern-grid" class="pattern-grid"></div>
-                </div>
-            </div>
+        <div class="doc-tabs">
+          <button class="doc-tab active" data-tab="workflow">
+            Workflow Guide
+          </button>
+          <button class="doc-tab" data-tab="memory-map">Memory Map</button>
+          <button class="doc-tab" data-tab="vic-reference">
+            VIC-II Reference
+          </button>
+          <button class="doc-tab" data-tab="sid-reference">
+            SID Reference
+          </button>
+          <button class="doc-tab" data-tab="basic-commands">
+            BASIC Commands
+          </button>
+          <button class="doc-tab" data-tab="programming-tips">
+            Programming Tips
+          </button>
         </div>
 
-        <!-- Sprite Editor Screen -->
-        <div id="sprite-editor" class="screen">
-            <div class="screen-header">
-                <button class="back-btn">← Back to Dashboard</button>
-                <h2>Sprite & Character Editor</h2>
-                <div class="editor-controls">
-                    <button id="new-sprite-file" class="btn small">New</button>
-                    <button id="load-sprite-file" class="btn small">Load</button>
-                    <button id="save-sprite-file" class="btn small">Save</button>
-                    <select id="sprite-file-select"></select>
-                </div>
-            </div>
-            
-            <div class="sprite-layout">
-                <div class="sprite-tools">
-                    <div class="tool-section">
-                        <h3>Mode</h3>
-                        <label><input type="radio" name="edit-mode" value="sprite" checked> Sprite (24x21)</label>
-                        <label><input type="radio" name="edit-mode" value="character"> Character (8x8)</label>
-                    </div>
-                    
-                    <div class="tool-section">
-                        <h3>Tools</h3>
-                        <button class="tool-btn active" data-tool="pixel">Pixel</button>
-                        <button class="tool-btn" data-tool="fill">Fill</button>
-                        <button class="tool-btn" data-tool="line">Line</button>
-                        <button class="tool-btn" data-tool="clear">Clear</button>
-                    </div>
-                    
-                    <div class="tool-section">
-                        <h3>C64 Palette</h3>
-                        <div id="color-palette" class="color-palette"></div>
-                        <button id="custom-palette" class="btn small">Custom Palette</button>
-                    </div>
-                    
-                    <div class="tool-section">
-                        <h3>Character Set</h3>
-                        <div id="charset-grid" class="charset-grid"></div>
-                    </div>
-                </div>
-                
-                <div class="sprite-canvas-container">
-                    <div class="canvas-header">
-                        <h3 id="canvas-title">Sprite Editor</h3>
-                        <div class="zoom-controls">
-                            <button id="zoom-out">-</button>
-                            <span id="zoom-level">8x</span>
-                            <button id="zoom-in">+</button>
-                        </div>
-                    </div>
-                    <canvas id="sprite-canvas" width="192" height="168"></canvas>
-                </div>
-                
-                <div class="sprite-preview">
-                    <h3>Preview</h3>
-                    <canvas id="preview-canvas" width="96" height="84"></canvas>
-                    <div class="preview-info">
-                        <p>Actual Size: <canvas id="actual-size" width="24" height="21"></canvas></p>
-                    </div>
-                </div>
-            </div>
+        <div class="doc-content">
+          <div id="workflow-content" class="doc-section active"></div>
+          <div id="memory-map-content" class="doc-section"></div>
+          <div id="vic-reference-content" class="doc-section"></div>
+          <div id="sid-reference-content" class="doc-section"></div>
+          <div id="basic-commands-content" class="doc-section"></div>
+          <div id="programming-tips-content" class="doc-section"></div>
         </div>
+      </div>
+
+      <!-- BASIC Editor Screen -->
+      <div id="basic-editor" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back to Dashboard</button>
+          <h2>BASIC V2 Editor</h2>
+          <div class="editor-controls">
+            <button id="new-basic-file" class="btn small">New</button>
+            <button id="load-basic-file" class="btn small">Load</button>
+            <button id="save-basic-file" class="btn small">Save</button>
+            <select id="basic-file-select"></select>
+          </div>
+        </div>
+
+        <div class="editor-layout">
+          <div class="editor-panel">
+            <div class="panel-header">
+              <h3>BASIC Code</h3>
+              <div class="editor-options">
+                <label
+                  ><input type="checkbox" id="line-numbers" /> Auto Line
+                  Numbers</label
+                >
+                <label
+                  >Increment:
+                  <select id="line-increment">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="100">100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <textarea
+              id="basic-code"
+              class="code-editor"
+              placeholder='10 PRINT "HELLO WORLD"&#10;20 GOTO 10'
+            ></textarea>
+          </div>
+
+          <div class="editor-panel">
+            <div class="panel-header">
+              <h3>Assembly View</h3>
+              <div class="asm-options">
+                <label
+                  ><input
+                    type="radio"
+                    name="asm-view"
+                    value="opcodes"
+                    checked
+                  />
+                  OpCodes</label
+                >
+                <label
+                  ><input type="radio" name="asm-view" value="readable" />
+                  Readable</label
+                >
+              </div>
+            </div>
+            <div id="asm-output" class="asm-viewer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SID Editor Screen -->
+      <div id="sid-editor" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back to Dashboard</button>
+          <h2>SID Audio Editor</h2>
+          <div class="editor-controls">
+            <button id="new-sid-file" class="btn small">New</button>
+            <button id="load-sid-file" class="btn small">Load</button>
+            <button id="save-sid-file" class="btn small">Save</button>
+            <select id="sid-file-select"></select>
+          </div>
+        </div>
+
+        <div class="sid-layout">
+          <div class="sid-controls">
+            <div class="playback-controls">
+              <button id="play-sid" class="btn primary">▶ Play</button>
+              <button id="stop-sid" class="btn secondary">⏹ Stop</button>
+              <button id="record-sid" class="btn secondary">⏺ Record</button>
+            </div>
+
+            <div class="tempo-control">
+              <label
+                >Tempo:
+                <input type="range" id="tempo" min="60" max="200" value="120" />
+                <span id="tempo-value">120</span> BPM</label
+              >
+            </div>
+          </div>
+
+          <div class="voice-panels">
+            <div class="voice-panel" data-voice="1">
+              <h3>Voice 1</h3>
+              <div class="voice-controls">
+                <select class="waveform-select">
+                  <option value="triangle">Triangle</option>
+                  <option value="sawtooth">Sawtooth</option>
+                  <option value="pulse">Pulse</option>
+                  <option value="noise">Noise</option>
+                </select>
+                <label
+                  >Attack:
+                  <input type="range" class="attack" min="0" max="15" value="0"
+                /></label>
+                <label
+                  >Decay:
+                  <input type="range" class="decay" min="0" max="15" value="9"
+                /></label>
+                <label
+                  >Sustain:
+                  <input
+                    type="range"
+                    class="sustain"
+                    min="0"
+                    max="15"
+                    value="0"
+                /></label>
+                <label
+                  >Release:
+                  <input
+                    type="range"
+                    class="release"
+                    min="0"
+                    max="15"
+                    value="0"
+                /></label>
+              </div>
+            </div>
+
+            <div class="voice-panel" data-voice="2">
+              <h3>Voice 2</h3>
+              <div class="voice-controls">
+                <select class="waveform-select">
+                  <option value="triangle">Triangle</option>
+                  <option value="sawtooth">Sawtooth</option>
+                  <option value="pulse">Pulse</option>
+                  <option value="noise">Noise</option>
+                </select>
+                <label
+                  >Attack:
+                  <input type="range" class="attack" min="0" max="15" value="0"
+                /></label>
+                <label
+                  >Decay:
+                  <input type="range" class="decay" min="0" max="15" value="9"
+                /></label>
+                <label
+                  >Sustain:
+                  <input
+                    type="range"
+                    class="sustain"
+                    min="0"
+                    max="15"
+                    value="0"
+                /></label>
+                <label
+                  >Release:
+                  <input
+                    type="range"
+                    class="release"
+                    min="0"
+                    max="15"
+                    value="0"
+                /></label>
+              </div>
+            </div>
+
+            <div class="voice-panel" data-voice="3">
+              <h3>Voice 3</h3>
+              <div class="voice-controls">
+                <select class="waveform-select">
+                  <option value="triangle">Triangle</option>
+                  <option value="sawtooth">Sawtooth</option>
+                  <option value="pulse">Pulse</option>
+                  <option value="noise">Noise</option>
+                </select>
+                <label
+                  >Attack:
+                  <input type="range" class="attack" min="0" max="15" value="4"
+                /></label>
+                <label
+                  >Decay:
+                  <input type="range" class="decay" min="0" max="15" value="0"
+                /></label>
+                <label
+                  >Sustain:
+                  <input
+                    type="range"
+                    class="sustain"
+                    min="0"
+                    max="15"
+                    value="8"
+                /></label>
+                <label
+                  >Release:
+                  <input
+                    type="range"
+                    class="release"
+                    min="0"
+                    max="15"
+                    value="8"
+                /></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="tracker-container">
+            <div class="pattern-header">
+              <div class="pattern-cell">Step</div>
+              <div class="pattern-cell">Voice 1 (Note Oct Fx Param)</div>
+              <div class="pattern-cell">Voice 2 (Note Oct Fx Param)</div>
+              <div class="pattern-cell">Voice 3 (Note Oct Fx Param)</div>
+            </div>
+            <div id="pattern-grid" class="pattern-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sprite Editor Screen -->
+      <div id="sprite-editor" class="screen">
+        <div class="screen-header">
+          <button class="back-btn">← Back to Dashboard</button>
+          <h2>Sprite & Character Editor</h2>
+          <div class="editor-controls">
+            <button id="new-sprite-file" class="btn small">New</button>
+            <button id="load-sprite-file" class="btn small">Load</button>
+            <button id="save-sprite-file" class="btn small">Save</button>
+            <select id="sprite-file-select"></select>
+          </div>
+        </div>
+
+        <div class="sprite-layout">
+          <div class="sprite-tools">
+            <div class="tool-section">
+              <h3>Mode</h3>
+              <label
+                ><input type="radio" name="edit-mode" value="sprite" checked />
+                Sprite (24x21)</label
+              >
+              <label
+                ><input type="radio" name="edit-mode" value="character" />
+                Character (8x8)</label
+              >
+            </div>
+
+            <div class="tool-section">
+              <h3>Tools</h3>
+              <button class="tool-btn active" data-tool="pixel">Pixel</button>
+              <button class="tool-btn" data-tool="fill">Fill</button>
+              <button class="tool-btn" data-tool="line">Line</button>
+              <button class="tool-btn" data-tool="clear">Clear</button>
+            </div>
+
+            <div class="tool-section">
+              <h3>C64 Palette</h3>
+              <div id="color-palette" class="color-palette"></div>
+              <button id="custom-palette" class="btn small">
+                Custom Palette
+              </button>
+            </div>
+
+            <div class="tool-section">
+              <h3>Character Set</h3>
+              <div id="charset-grid" class="charset-grid"></div>
+            </div>
+          </div>
+
+          <div class="sprite-canvas-container">
+            <div class="canvas-header">
+              <h3 id="canvas-title">Sprite Editor</h3>
+              <div class="zoom-controls">
+                <button id="zoom-out">-</button>
+                <span id="zoom-level">8x</span>
+                <button id="zoom-in">+</button>
+              </div>
+            </div>
+            <canvas id="sprite-canvas" width="192" height="168"></canvas>
+          </div>
+
+          <div class="sprite-preview">
+            <h3>Preview</h3>
+            <canvas id="preview-canvas" width="96" height="84"></canvas>
+            <div class="preview-info">
+              <p>
+                Actual Size:
+                <canvas id="actual-size" width="24" height="21"></canvas>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/main.js"></script>
@@ -297,5 +429,5 @@
     <script src="js/basic-editor.js"></script>
     <script src="js/sid-editor.js"></script>
     <script src="js/sprite-editor.js"></script>
-</body>
+  </body>
 </html>
